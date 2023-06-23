@@ -154,7 +154,12 @@ class Search_Setup:
             self._start_indexing(data)
         else:
             print("\033[91m Metadata and Features are already present, Do you want Extract Again? Enter yes or no")
-            flag = str(input())
+            flag = ''
+            try:
+                flag = str(input())
+            except EOFError:
+                print("\033[EOF Error, Applying Search!")
+                print(os.listdir(f'metadata-files/{self.model_name}'))
             if flag.lower() == 'yes':
                 data = self._start_feature_extraction()
                 self._start_indexing(data)
